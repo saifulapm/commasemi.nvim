@@ -16,22 +16,81 @@ A Neovim plugin for smart toggling of comma and semicolon at the end of lines. H
 
 ## 📦 Installation
 
-Using [lazy.nvim](https://github.com/folke/lazy.nvim):
+### Using with [lazy.nvim](https://github.com/folke/lazy.nvim)
+
+Full setup (default, everything enabled):
 ```lua
 {
   "saifulapm/commasemi.nvim",
-  lazy = false, -- make sure to set this to false or set keys = { '<LocalLeader>,', '<LocalLeader>;' }
+  lazy = false,
   opts = {
-    leader = "<localleader>" -- optional, defaults to <localleader>
+    leader = "<localleader>",
+    keymaps = true,
+    commands = true
+  }
+}
+```
+
+Keymaps only:
+```lua
+{
+  "saifulapm/commasemi.nvim",
+  lazy = false,
+  init = function()
+    vim.g.commasemi_disable_commands = true  -- disable commands before plugin loads
+  end,
+  opts = {
+    keymaps = true,
+    commands = false
+  }
+}
+```
+
+Commands only:
+```lua
+{
+  "saifulapm/commasemi.nvim",
+  cmd = { "CommaToggle", "SemiToggle" },
+  opts = {
+    keymaps = false,
+    commands = true
+  }
+}
+```
+
+Custom setup:
+```lua
+{
+  "saifulapm/commasemi.nvim",
+  keys = {
+    { "<localleader>,", desc = "Toggle comma" },
+    { "<localleader>;", desc = "Toggle semicolon" },
+  },
+  opts = {
+    leader = "<localleader>",
+    keymaps = true,
+    commands = true
   }
 }
 ```
 
 ## 🚀 Usage
 
-After setup, you get two keymaps in both normal and visual modes:
+You can use the plugin in two ways (depending on your configuration):
+
+### 1. With Keymaps (enabled by default)
+When keymaps are enabled:
 - `<localleader>,` - Toggle comma
 - `<localleader>;` - Toggle semicolon
+
+### 2. With Commands (enabled by default)
+When commands are enabled:
+- `:CommaToggle` - Toggle comma at the end of current line
+- `:SemiToggle` - Toggle semicolon at the end of current line
+- Both commands support ranges:
+  - `:%CommaToggle` - Toggle comma on all lines
+  - `:5,10CommaToggle` - Toggle comma on lines 5-10
+  - `:'<,'>SemiToggle` - Toggle semicolon on visually selected lines
 
 ### Examples
 
@@ -98,7 +157,9 @@ x = 42,  # comment
 
 ```lua
 require('commasemi').setup({
-  leader = '<localleader>' -- optional, defaults to <localleader>
+  leader = '<localleader>', -- optional, defaults to <localleader>
+  keymaps = true,          -- optional, set to false to disable keymaps
+  commands = true          -- optional, set to false to disable commands
 })
 ```
 
