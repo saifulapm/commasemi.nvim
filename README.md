@@ -11,6 +11,7 @@ A Neovim plugin for smart toggling of comma and semicolon at the end of lines. H
   - If same character exists → removes it
   - If different character exists → replaces it
 - Works with multiple comment styles across languages
+- Supports Visual mode for multiple line toggling
 - Supports JavaScript, TypeScript, PHP, Python, Ruby, Rust, Go, C/C++, Lua, HTML, CSS, and more
 
 ## 📦 Installation
@@ -28,7 +29,7 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ## 🚀 Usage
 
-After setup, you get two keymaps:
+After setup, you get two keymaps in both normal and visual modes:
 - `<localleader>,` - Toggle comma
 - `<localleader>;` - Toggle semicolon
 
@@ -50,6 +51,19 @@ const foo = 'bar';
 
 // After <localleader>, (replaces semicolon with comma)
 const foo = 'bar',
+```
+
+#### Visual Mode
+```javascript
+// Select multiple lines and toggle
+const foo = 'bar'
+const baz = 'qux'
+const data = { x: 1 }
+
+// After visual select and <localleader>,
+const foo = 'bar',
+const baz = 'qux',
+const data = { x: 1 },
 ```
 
 #### With Comments
